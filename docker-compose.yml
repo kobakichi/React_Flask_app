@@ -26,11 +26,12 @@ services:
     # networks:
     #   - front_network
 
-flask:
-  container_name: flask
-  build: ./backend
-  ports:
-    - "5001:5000"
-  volumes:
-    - ./backend/app:/usr/src/app:cached
-  command: flask run --host=0.0.0.0
+  flask:
+    container_name: flask
+    build: ./backend
+    ports:
+      - "5001:5000"
+    volumes:
+      - ./backend/app:/usr/src/app
+    # working_dir: /usr/src/scripts
+    command: flask run --host=0.0.0.0
