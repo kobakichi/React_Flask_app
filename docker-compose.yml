@@ -1,9 +1,11 @@
 # docker composerのバージョンの指定
 version: "3.9"
 
+# 起動するサービスコンテナを記述
 services:
+  # nodeコンテナを起動
   node:
-    # buildするdockerfileの位置
+    # ./frontにあるdockerfileからimageを作成する。
     build: ./front
     # 作成するdockerコンテナの名前
     container_name: node
@@ -26,11 +28,15 @@ services:
     networks:
       - front_network
 
+  # flaskのコンテナを起動する。
   flask:
     container_name: flask
+    # ./backendにあるdockerfileを使ってimageを作成する。
     build: ./backend
+    # 自分のPCの5001番ポートをdockerの5000番ポートへバインドする。
     ports:
       - "5001:5000"
+    # ./backend/appディレクトリをdockerの/usr/src/appへ繋ぐ
     volumes:
       - ./backend/app:/usr/src/app
     # working_dir: /usr/src/scripts
