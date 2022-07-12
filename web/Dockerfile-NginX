@@ -1,0 +1,11 @@
+FROM nginx:latest
+
+RUN rm -rf /etc/nginx/conf.d/default.conf
+# COPY ./web/NginX-conf/nginx.conf /etc/nginx/nginx.conf
+# COPY ./web/NginX-conf/node_server.conf /etc/nginx/conf.d/node_server.conf
+# COPY ./web/NginX-conf/flask_server.conf /etc/nginx/conf.d/flask_server.conf
+COPY ./web/conf/default.conf /etc/nginx/conf.d/
+
+# COPY ./front/React/build /usr/share/nginx/html
+
+# CMD ["nginx", "-g", "daemon off;"]

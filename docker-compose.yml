@@ -26,7 +26,9 @@ services:
     environment:
       - CHOKIDAR_USEPOLLING=true
     networks:
-      - front_network
+      # - front_network
+      my_network:
+        ipv4_address: 192.168.10.31
 
   # flaskのコンテナを起動する。
   flask:
@@ -42,14 +44,51 @@ services:
     # working_dir: /usr/src/scripts
     command: flask run --host=0.0.0.0
     networks:
-      - backend_network
+      # - backend_network
+      my_network:
+        ipv4_address: 192.168.10.45
     environment:
       TZ: "Asia/Tokyo"
 
+  web:
+    container_name: NginX
+    # build:
+    #   context: .
+    #   dockerfile: ./web/Dockerfile-NginX
+    image: nginx:latest
+    # command: nginx -g "daemon off;"
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      # - ./front/React/build:/usr/share/nginx/html
+      - ./log/1.log:/var/log/nginx/host.access.log
+      # - ./web/conf/default.conf:/etc/nginx/conf.d/default.conf
+      # - ../ssl/certs/:/etc/pki/tls/certs/
+      # - ../ssl/private/:/etc/pki/tls/private/
+      # - gunicorn_socket:/tmp/gunicorn_socket/gunicorn_flask.sock
+    # links:
+    #   - flask
+    # restart: always
+    networks:
+      my_network:
+        ipv4_address: 192.168.10.22
+
 networks:
-  backend_network:
-    name: backend_network
+  my_network:
     driver: bridge
-  front_network:
-    name: front_network
-    driver: bridge
+    ipam:
+      driver: default
+      config:
+        # ipaddressの範囲を決める。
+        - subnet: 192.168.10.0/24
+  # backend_network:
+  #   name: backend_network
+  #   driver: bridge
+  # front_network:
+  #   name: front_network
+  #   driver: bridge
+
+volumes:
+  log:
+  # gunicorn_socket:
