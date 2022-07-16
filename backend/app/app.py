@@ -1,3 +1,4 @@
+from crypt import methods
 from email.policy import default
 from enum import unique
 import imp
@@ -74,16 +75,29 @@ cors.init_app(app)
 
 
 # ユーザーを追加する処理
-with app.app_context():
-    db.create_all()
-    if db.session.query(User).filter_by(username='kobakichi').count() < 1:
-        db.session.add(User(
-            username='kobakichi',
-            password=guard.hash_password('strongpassword'),
-            roles='admin'
-        ))
-    db.session.commit()
+@app.route('/api/register', methods=['POST'])
+def register():
     
+    
+    req = flask.request.get_json(force=True)
+    username = req.get('username', None)
+    password = req.get('password', None)
+    
+    
+    with app.app_context():
+        db.create_all()
+        if db.session.query(User).filter_by(username=username).count() < 1:
+            db.session.add(User(
+                username=username,
+                password=guard.hash_password(password),
+                roles='admin'
+            ))
+        db.session.commit()
+    
+    user = guard.authenticate(username, password)
+    ret = {'acccess_token': guard.encode_jwt_token(user)}
+
+    return ret,200
     
 # ルーティングの設定
 @app.route('/api/')
