@@ -5,4 +5,25 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
+}
+
+.container {
+  width: 400px;
+  height: 40%;
+  border: solid 4px;
+  border-color: #268bd2;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.form {
+  width: 60%;
+  padding-right: 30px;
+}
+
+.button {
+  padding-left: 30px;
 }
