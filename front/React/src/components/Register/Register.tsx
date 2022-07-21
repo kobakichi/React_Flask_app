@@ -10,6 +10,7 @@ import axios from "axios";
 type RegisterUser = {
   username: string;
   password: string;
+  access_token: string;
 };
 
 export const Register: VFC = memo(() => {
@@ -46,6 +47,20 @@ export const Register: VFC = memo(() => {
     }
   };
 
+  // 登録ボタンを押した時に発火する関数
+  const onClickRegister = () => {
+    postRegisterUser()
+      .then((result) => {
+        console.log(result);
+        // localstrageへaccess_tokenをセットする
+        localStorage.setItem("token", result.access_token);
+        // 登録が完了したらhomeへ移動する。
+        navigate("/");
+      })
+      .catch((err) => console.log(err))
+      .finally(() => console.log("登録完了"));
+  };
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.container}>
@@ -80,6 +95,7 @@ export const Register: VFC = memo(() => {
                 borderColor={"#268BD2"}
                 color={"white"}
                 _hover={{ background: "#36DBCE", cursor: "pointer" }}
+                onClick={onClickRegister}
               >
                 登録する
               </Button>
