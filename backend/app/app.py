@@ -95,7 +95,7 @@ def register():
         db.session.commit()
     
     user = guard.authenticate(username, password)
-    ret = {'acccess_token': guard.encode_jwt_token(user)}
+    ret = {'access_token': guard.encode_jwt_token(user)}
 
     return ret,200
     
