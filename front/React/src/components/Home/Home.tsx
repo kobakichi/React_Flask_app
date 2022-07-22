@@ -5,7 +5,7 @@ export const Home = () => {
   return (
     <div className={styles.wrapper}>
       <h1>Typing EQ short_cut_key version</h1>
-      <p>ログインできましたよ〜〜〜！</p>
+      <p>登録成功〜〜〜！</p>
     </div>
   );
 };
