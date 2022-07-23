@@ -1,0 +1,29 @@
+.wrapper {
+  height: 100%;
+  width: 100%;
+  background-color: rgba(7, 54, 66, 1);
+  color: #268bd2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  border: solid 4px;
+  width: 400px;
+  height: 40%;
+  border-color: #268bd2;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.form {
+  width: 60%;
+  padding-right: 30px;
+}
+
+.button {
+  padding-left: 30px;
+}

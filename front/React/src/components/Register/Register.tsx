@@ -6,12 +6,7 @@ import styles from "./Register.module.css";
 import { SubTitle } from "./SubTitle/SubTitle";
 import { Title } from "./Title/Title";
 import axios from "axios";
-// バックエンドからのレスポンスの型定義
-type RegisterUser = {
-  username: string;
-  password: string;
-  access_token: string;
-};
+import { RegisterUser } from "../../types/User";
 
 export const Register: VFC = memo(() => {
   const navigate = useNavigate();
