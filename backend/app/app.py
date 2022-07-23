@@ -9,6 +9,7 @@ import flask_sqlalchemy
 import flask_praetorian
 import flask_cors
 
+
 # インスタンスの作成
 db = flask_sqlalchemy.SQLAlchemy()
 guard = flask_praetorian.Praetorian()
