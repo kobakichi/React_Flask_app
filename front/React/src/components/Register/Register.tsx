@@ -47,7 +47,6 @@ export const Register: VFC = memo(() => {
     } catch (err: any) {
       if (err.response.status === 401) {
         setErrorMessage(`${userName}は既に存在しています。`);
-        // window.alert(`${userName}は既に存在しています。`);
       }
       throw new Error(err);
     }
