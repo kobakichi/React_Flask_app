@@ -18,6 +18,8 @@ export const Register: VFC = memo(() => {
 
   const [userName, setUserName] = useState("");
   const [passWord, setPassWord] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  // const [isLoading, setIsLoading] = useState(false);
 
   // usernameを保持する関数
   const onChangeUserNameInput = (e: ChangeEvent<HTMLInputElement>) => {
@@ -43,6 +45,10 @@ export const Register: VFC = memo(() => {
       );
       return result.data;
     } catch (err: any) {
+      if (err.response.status === 401) {
+        setErrorMessage(`${userName}は既に存在しています。`);
+        // window.alert(`${userName}は既に存在しています。`);
+      }
       throw new Error(err);
     }
   };
@@ -57,8 +63,8 @@ export const Register: VFC = memo(() => {
         // 登録が完了したらhomeへ移動する。
         navigate("/");
       })
-      .catch((err) => console.log(err))
-      .finally(() => console.log("登録完了"));
+      .catch((err) => console.log(err));
+    // .finally(() => console.log("登録完了"));
   };
 
   return (
@@ -102,6 +108,7 @@ export const Register: VFC = memo(() => {
             </div>
           </Stack>
         </div>
+        <p className={styles.errorMessage}>{errorMessage}</p>
       </div>
     </div>
   );
