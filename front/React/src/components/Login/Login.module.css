@@ -27,3 +27,8 @@
 .button {
   padding-left: 30px;
 }
+
+.errorMessage {
+  color: white;
+  font-size: medium;
+}
