@@ -1,5 +1,5 @@
 import { Button, Input, Stack } from "@chakra-ui/react";
-import React, { memo, useState, VFC } from "react";
+import React, { memo, VFC } from "react";
 import { SubTitle } from "../Register/SubTitle/SubTitle";
 import { Title } from "../Register/Title/Title";
 import styles from "./Login.module.css";
@@ -7,48 +7,10 @@ import styles from "./Login.module.css";
  * カスタムフック
  */
 import { useFormInput } from "../../hooks/useFormInput";
-// import axios from "axios";
-// import { RegisterUser } from "../../types/User";
-// import { useNavigate } from "react-router-dom";
 
 export const Login: VFC = memo(() => {
   // hooksを分割代入する
   const [states, actions] = useFormInput();
-  // const [errorMessage, setErrorMessage] = useState("");
-  // const [isError, setIsError] = useState(false);
-
-  // const navigate = useNavigate();
-  // // /loginエンドポイントへデータを送信する処理
-  // const postLoginUser = async () => {
-  //   try {
-  //     const result = await axios.post<RegisterUser>(
-  //       "http://localhost:5001/api/login",
-  //       {
-  //         username: states.userName,
-  //         password: states.passWord,
-  //       }
-  //     );
-  //     return result.data;
-  //   } catch (err: any) {
-  //     throw new Error(err);
-  //   }
-  // };
-
-  // // クリックした時に発火する関数
-  // const onClickLogin = () => {
-  //   postLoginUser()
-  //     .then((result) => {
-  //       console.log(result);
-  //       // localstrageへtokenをセット
-  //       localStorage.setItem("token", result.access_token);
-  //       navigate("/");
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //       setIsError(true);
-  //       setErrorMessage("入力内容をお確かめください。");
-  //     });
-  // };
 
   return (
     <div className={styles.wrapper}>
