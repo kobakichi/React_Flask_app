@@ -36,7 +36,7 @@ export const useFormInput = () => {
         {
           username: userName,
           password: passWord,
-          access_token: localStorage.getItem("access_token"),
+          access_token: localStorage.getItem("token"),
         }
       );
       return result.data;

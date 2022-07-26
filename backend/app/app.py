@@ -58,8 +58,8 @@ class User(db.Model):
 app = flask.Flask(__name__)
 app.debug = True
 app.config['SECRET_KEY'] = 'top secret'
-app.config['JWT_ACCESS_LIFESPAN'] = {'hours': 24}
-app.config['JWT_REFRESH_LIFESPAN'] = {'days': 30}
+app.config['JWT_ACCESS_LIFESPAN'] = {'seconds': 1}
+app.config['JWT_REFRESH_LIFESPAN'] = {'days': 1}
 
 
 # アプリ用のflask-praetorianのインスタンスの初期化
