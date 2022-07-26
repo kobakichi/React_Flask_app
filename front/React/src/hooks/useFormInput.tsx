@@ -5,6 +5,7 @@
 import axios from "axios";
 import React, { useState, ChangeEvent } from "react";
 import { useNavigate } from "react-router-dom";
+import { login } from "../auth";
 import { RegisterUser } from "../types/User";
 
 export const useFormInput = () => {
@@ -35,6 +36,7 @@ export const useFormInput = () => {
         {
           username: userName,
           password: passWord,
+          access_token: localStorage.getItem("access_token"),
         }
       );
       return result.data;
@@ -83,6 +85,9 @@ export const useFormInput = () => {
   const onClickLogin = () => {
     postLoginUser()
       .then((result) => {
+        if (result.access_token) {
+          login(result);
+        }
         console.log(result);
         // localstrageへtokenをセット
         localStorage.setItem("token", result.access_token);

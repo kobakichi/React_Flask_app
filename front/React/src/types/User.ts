@@ -3,4 +3,6 @@ export type RegisterUser = {
   username: string;
   password: string;
   access_token: string;
+  access_Token: string;
+  refreshToken: string;
 };
