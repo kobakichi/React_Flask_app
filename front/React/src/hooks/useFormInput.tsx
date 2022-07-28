@@ -5,6 +5,8 @@
 import axios from "axios";
 import React, { useState, ChangeEvent } from "react";
 import { useNavigate } from "react-router-dom";
+import { useSetRecoilState } from "recoil";
+import { userAuthState } from "../atom/userAuthState";
 import { login } from "../auth";
 import { RegisterUser } from "../types/User";
 
@@ -16,6 +18,8 @@ export const useFormInput = () => {
 
   const navigate = useNavigate();
 
+  // atomの更新関数を変数へ入れる。
+  const setLogin = useSetRecoilState(userAuthState);
   // usernameを保持する関数
   const onChangeUserNameInput = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
@@ -89,6 +93,8 @@ export const useFormInput = () => {
           login(result);
         }
         console.log(result);
+        // atomの更新関数読み込み
+        setLogin(result);
         // localstrageへtokenをセット
         localStorage.setItem("token", result.access_token);
         navigate("/");
