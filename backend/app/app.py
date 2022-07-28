@@ -58,8 +58,8 @@ class User(db.Model):
 app = flask.Flask(__name__)
 app.debug = True
 app.config['SECRET_KEY'] = 'top secret'
-app.config['JWT_ACCESS_LIFESPAN'] = {'seconds': 1}
-app.config['JWT_REFRESH_LIFESPAN'] = {'days': 1}
+app.config['JWT_ACCESS_LIFESPAN'] = {'minutes': 30}
+app.config['JWT_REFRESH_LIFESPAN'] = {'days': 30}
 
 
 # アプリ用のflask-praetorianのインスタンスの初期化
@@ -96,7 +96,7 @@ def register():
         db.session.commit()
     
     user = guard.authenticate(username, password)
-    ret = {'access_token': guard.encode_jwt_token(user)}
+    ret = {'access_token': guard.encode_jwt_token(user), 'username': username, 'user_id': user.id}
 
     return ret,200
     
@@ -120,7 +120,7 @@ def login():
     username = req.get('username', None)
     password = req.get('password', None)
     user = guard.authenticate(username, password)
-    ret = {'access_token': guard.encode_jwt_token(user)}
+    ret = {'access_token': guard.encode_jwt_token(user), 'username': username, 'user_id': user.id}
     return ret, 200
 
 
