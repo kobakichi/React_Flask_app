@@ -3,15 +3,23 @@ import React, { memo, VFC } from "react";
 import { SubTitle } from "../Register/SubTitle/SubTitle";
 import { Title } from "../Register/Title/Title";
 import styles from "./Login.module.css";
+import {useForm} from "react-hook-form";
 /**
  * カスタムフック
  */
 import { useFormInput } from "../../hooks/useFormInput";
 
+type IFormInput = {
+  userName: string;
+  passWord: string;
+}
+
 export const Login: VFC = memo(() => {
   // hooksを分割代入する
   const [states, actions] = useFormInput();
 
+  // react-hook-formのバリデーション
+  const {register} = useForm<IFormInput>();
   return (
     <div className={styles.wrapper}>
       <div className={styles.container}>
@@ -27,6 +35,7 @@ export const Login: VFC = memo(() => {
               borderColor={"#268BD2"}
               _placeholder={{ opacity: 1, color: "#268BD2" }}
               onChange={actions.onChangeUserNameInput}
+              name="userName" ref=
             />
             <Input
               type="password"
