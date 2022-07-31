@@ -1,9 +1,15 @@
-import { Button, Input, Stack } from "@chakra-ui/react";
+import {
+  Button,
+  FormControl,
+  FormErrorMessage,
+  Input,
+  Stack,
+} from "@chakra-ui/react";
 import React, { memo, VFC } from "react";
 import { SubTitle } from "../Register/SubTitle/SubTitle";
 import { Title } from "../Register/Title/Title";
 import styles from "./Login.module.css";
-import {useForm} from "react-hook-form";
+import { useForm } from "react-hook-form";
 /**
  * カスタムフック
  */
@@ -12,14 +18,18 @@ import { useFormInput } from "../../hooks/useFormInput";
 type IFormInput = {
   userName: string;
   passWord: string;
-}
+};
 
 export const Login: VFC = memo(() => {
   // hooksを分割代入する
   const [states, actions] = useFormInput();
 
   // react-hook-formのバリデーション
-  const {register} = useForm<IFormInput>();
+  const {
+    register,
+    formState: { errors },
+  } = useForm({ mode: "all" });
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.container}>
@@ -27,16 +37,31 @@ export const Login: VFC = memo(() => {
         <SubTitle text="short-cut-key version" />
         <div className={styles.form}>
           <Stack spacing={10}>
-            <Input
-              color={"white"}
-              size={"lg"}
-              placeholder="user name"
-              background={"#0A5163"}
-              borderColor={"#268BD2"}
-              _placeholder={{ opacity: 1, color: "#268BD2" }}
-              onChange={actions.onChangeUserNameInput}
-              name="userName" ref=
-            />
+            <FormControl
+              id="inputUser"
+              isRequired
+              isInvalid={errors.inputUser ? true : false}
+            >
+              <Input
+                color={"white"}
+                size={"lg"}
+                placeholder="user name"
+                background={"#0A5163"}
+                borderColor={"#268BD2"}
+                _placeholder={{ opacity: 1, color: "#268BD2" }}
+                {...register("inputUser", {
+                  required: "ユーザー名を入力してください",
+                  maxLength: {
+                    value: 10,
+                    message: "10文字以内で入力してください",
+                  },
+                })}
+                onChange={actions.onChangeUserNameInput}
+              />
+              <FormErrorMessage>
+                {errors.inputUser && errors.inputUser.message}
+              </FormErrorMessage>
+            </FormControl>
             <Input
               type="password"
               color={"white"}
