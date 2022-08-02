@@ -28,15 +28,15 @@ export const Login: VFC = memo(() => {
   // react-hook-formのバリデーション
   const {
     register,
-    handleSubmit,
+    // handleSubmit,
     watch,
     formState: { errors },
-  } = useForm<RegisterUser>({ mode: "all" });
+  } = useForm<RegisterUser>({ mode: "all", reValidateMode: "onChange" });
 
   // formタグに渡す関数
-  const handleOnSubmit: SubmitHandler<RegisterUser> = (values) => {
-    console.log(values);
-  };
+  // const handleOnSubmit: SubmitHandler<RegisterUser> = (values) => {
+  //   console.log(values);
+  // };
 
   console.log(watch("username"));
 
@@ -46,33 +46,39 @@ export const Login: VFC = memo(() => {
         <Title text="Typing EQ" />
         <SubTitle text="short-cut-key version" />
         <div className={styles.form}>
-          <form onSubmit={handleSubmit(handleOnSubmit)}>
-            <Stack spacing={10}>
-              {/* usernameのフォームコントロール */}
-              <FormControl
-                id="username"
-                isRequired
-                isInvalid={errors.username ? true : false}
-              >
-                <Input
-                  color={"white"}
-                  size={"lg"}
-                  placeholder="user name"
-                  background={"#0A5163"}
-                  borderColor={"#268BD2"}
-                  _placeholder={{ opacity: 1, color: "#268BD2" }}
-                  {...register("username", {
-                    required: "ユーザー名を入力してください",
-                    maxLength: {
-                      value: 10,
-                      message: "10文字以内で入力してください",
-                    },
-                  })}
-                />
-                <FormErrorMessage>
-                  {errors.username && errors.username.message}
-                </FormErrorMessage>
-              </FormControl>
+          {/* <form onSubmit={handleSubmit(handleOnSubmit)}> */}
+          <Stack spacing={10}>
+            {/* usernameのフォームコントロール */}
+            <FormControl
+              id="username"
+              isRequired
+              isInvalid={errors.username ? true : false}
+            >
+              <Input
+                color={"white"}
+                size={"lg"}
+                placeholder="user name"
+                background={"#0A5163"}
+                borderColor={"#268BD2"}
+                _placeholder={{ opacity: 1, color: "#268BD2" }}
+                {...register("username", {
+                  required: "ユーザー名を入力してください",
+                  maxLength: {
+                    value: 10,
+                    message: "10文字以内で入力してください",
+                  },
+                })}
+                onChange={actions.onChangeUserNameInput}
+              />
+              <FormErrorMessage>
+                {errors.username && errors.username.message}
+              </FormErrorMessage>
+            </FormControl>
+            <FormControl
+              id="passWord"
+              isRequired
+              isInvalid={errors.password ? true : false}
+            >
               <Input
                 type="password"
                 color={"white"}
@@ -81,23 +87,34 @@ export const Login: VFC = memo(() => {
                 borderColor={"#268BD2"}
                 placeholder="pass word"
                 _placeholder={{ opacity: 1, color: "rgba(38, 139, 210, 1)" }}
+                {...register("password", {
+                  required: "パスワードを入力してください",
+                  minLength: {
+                    value: 8,
+                    message: "8文字以上で入力してください",
+                  },
+                })}
                 onChange={actions.onChangePasswordInput}
               />
-              <div className={styles.button}>
-                <Button
-                  size={"lg"}
-                  width="200px"
-                  background={"#2AA198"}
-                  borderColor={"#268BD2"}
-                  color={"white"}
-                  _hover={{ background: "#36DBCE", cursor: "pointer" }}
-                  onClick={actions.onClickLogin}
-                >
-                  ログイン
-                </Button>
-              </div>
-            </Stack>
-          </form>
+              <FormErrorMessage>
+                {errors.password && errors.password.message}
+              </FormErrorMessage>
+            </FormControl>
+            <div className={styles.button}>
+              <Button
+                size={"lg"}
+                width="200px"
+                background={"#2AA198"}
+                borderColor={"#268BD2"}
+                color={"white"}
+                _hover={{ background: "#36DBCE", cursor: "pointer" }}
+                onClick={actions.onClickLogin}
+              >
+                ログイン
+              </Button>
+            </div>
+          </Stack>
+          {/* </form> */}
         </div>
         {/* ログインに失敗した時の処理 */}
         {states.isError && (
