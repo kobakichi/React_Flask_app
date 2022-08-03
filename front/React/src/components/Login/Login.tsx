@@ -41,13 +41,7 @@ export const Login: VFC = memo(() => {
     formState: { errors },
   } = useForm<RegisterUser>({ mode: "all", reValidateMode: "onChange" });
 
-  // formタグに渡す関数
-  const handleOnSubmit: SubmitHandler<RegisterUser> = (
-    values: RegisterUser
-  ) => {
-    console.log(values);
-  };
-
+  // registerに入った値を取得する。
   const values = getValues();
 
   // /loginエンドポイントへデータを送信する処理
@@ -93,7 +87,7 @@ export const Login: VFC = memo(() => {
         <Title text="Typing EQ" />
         <SubTitle text="short-cut-key version" />
         <div className={styles.form}>
-          <form onSubmit={handleSubmit(handleOnSubmit)}>
+          <form onSubmit={handleSubmit(onClickLogin)}>
             <Stack spacing={10}>
               {/* usernameのフォームコントロール */}
               <FormControl
@@ -137,7 +131,7 @@ export const Login: VFC = memo(() => {
                     required: "パスワードを入力してください",
                     minLength: {
                       value: 4,
-                      message: "8文字以上で入力してください",
+                      message: "4文字以上で入力してください",
                     },
                   })}
                 />
@@ -153,7 +147,7 @@ export const Login: VFC = memo(() => {
                   borderColor={"#268BD2"}
                   color={"white"}
                   _hover={{ background: "#36DBCE", cursor: "pointer" }}
-                  onClick={onClickLogin}
+                  // onClick={onClickLogin}
                   type="submit"
                 >
                   ログイン
