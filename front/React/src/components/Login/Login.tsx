@@ -147,7 +147,6 @@ export const Login: VFC = memo(() => {
                   borderColor={"#268BD2"}
                   color={"white"}
                   _hover={{ background: "#36DBCE", cursor: "pointer" }}
-                  // onClick={onClickLogin}
                   type="submit"
                 >
                   ログイン
