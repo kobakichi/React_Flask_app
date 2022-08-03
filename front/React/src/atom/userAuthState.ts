@@ -6,6 +6,7 @@ export const userAuthState = atom<RegisterUser>({
   default: {
     user_id: 0,
     username: "",
+    password: 0,
     access_token: "",
     access_Token: "",
     refreshToken: "",
