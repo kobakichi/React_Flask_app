@@ -4,6 +4,7 @@ from enum import unique
 import imp
 import os
 from distutils.log import debug
+from urllib import request
 import flask
 import flask_sqlalchemy
 import flask_praetorian
@@ -96,7 +97,7 @@ def register():
         db.session.commit()
     
     user = guard.authenticate(username, password)
-    ret = {'access_token': guard.encode_jwt_token(user), 'username': username, 'user_id': user.id}
+    ret = {'accessToken': guard.encode_jwt_token(user), 'username': username, 'user_id': user.id}
 
     return ret,200
     
@@ -120,7 +121,7 @@ def login():
     username = req.get('username', None)
     password = req.get('password', None)
     user = guard.authenticate(username, password)
-    ret = {'access_token': guard.encode_jwt_token(user), 'username': username, 'user_id': user.id}
+    ret = {'accessToken': guard.encode_jwt_token(user), 'username': username, 'user_id': user.id}
     return ret, 200
 
 
@@ -136,7 +137,7 @@ def refresh():
     print("refresh request")
     old_token = request.get_data()
     new_token = guard.refresh_jwt_token(old_token)
-    ret = {'access_token': new_token}
+    ret = {'refreshToken': new_token}
     return ret, 200
 
 
@@ -151,7 +152,8 @@ def protected():
     $ curl http://localhost:5000/api/protected -X GET \.
     -H "Authorization: Bearer <your_token>".
     """
-    return {'message': f'protected endpoint (allowed user {flask_praetorian.current_user().username})'}
+    ret = {'username': flask_praetorian.current_user().username}
+    return ret, 200
 
 
 if __name__ == "__main__":

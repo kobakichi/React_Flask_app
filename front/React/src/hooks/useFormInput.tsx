@@ -40,7 +40,7 @@ export const useFormInput = () => {
         {
           username: userName,
           password: passWord,
-          access_token: localStorage.getItem("token"),
+          accessToken: localStorage.getItem("token"),
         }
       );
       return result.data;
@@ -73,8 +73,8 @@ export const useFormInput = () => {
     postRegisterUser()
       .then((result) => {
         console.log(result);
-        // localstrageへaccess_tokenをセットする
-        localStorage.setItem("token", result.access_token);
+        // localstrageへaccessTokenをセットする
+        localStorage.setItem("token", result.accessToken);
         // 登録が完了したらhomeへ移動する。
         navigate("/");
       })
@@ -89,14 +89,14 @@ export const useFormInput = () => {
   const onClickLogin = () => {
     postLoginUser()
       .then((result) => {
-        if (result.access_token) {
+        if (result.accessToken) {
           login(result);
         }
         console.log(result);
         // atomの更新関数読み込み
         setLogin(result);
         // localstrageへtokenをセット
-        localStorage.setItem("token", result.access_token);
+        localStorage.setItem("token", result.accessToken);
         navigate("/");
       })
       .catch((err) => {

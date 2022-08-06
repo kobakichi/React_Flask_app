@@ -56,8 +56,8 @@ export const Register: VFC = memo(() => {
     postRegisterUser()
       .then((result) => {
         console.log(result);
-        // localstrageへaccess_tokenをセットする
-        localStorage.setItem("token", result.access_token);
+        // localstrageへaccessTokenをセットする
+        localStorage.setItem("token", result.accessToken);
         // 登録が完了したらhomeへ移動する。
         navigate("/");
       })
